@@ -1,0 +1,97 @@
+交互：
+	好友系统：
+		好友，仇人，陌生人，最近联系人
+		修改好友列表不再分组，
+	
+		relationship_setting表 ->ets_rela_set
+			直接删除
+		relationship表 ->ets_rela
+			删： in_group    因为好友列表分组不存在
+		
+		获取好友列表是的协议需要修改（14000）
+		添加好友，不需要对方确认，只能添加在线好友;
+		需要修改好友列表返回时的操作，协议
+		好友上线提示：
+			修改为
+				向所有人发送一个消息，在好友列表中有这个玩家的人会收到消息
+				注：产生的效果是，A好友中有B，B好友中无A，A上线B无提示，B上线A有提示	
+				收到消息的玩家好友显示变亮,系统消息：你的好友XX上线了					
+
+
+		
+	邮件系统：
+		无修改
+		每发一封邮件自动扣除50绑定铜，需要通知客户端
+		
+	师徒系统：
+		原来的系统都没有实现此功能，需要重新定义协议和数据表
+		师傅表(伯乐榜)： master_charts -->ets_master_charts
+		创建师徒关系表  master_apprentice
+		manster_charts：																					(已改)
+			master_id			师傅ID	
+			master_name			师傅姓名
+			master_lv			师傅等级
+			realm				所属部落
+			career				职业
+			award_count			师道值（默认为0）
+			score_lv			成绩级数
+			appre_num			师门人数
+			regist_time			登记时间
+			lover_type			是否上伯乐榜榜(0：不上，1：上)
+			
+			
+		master_apprentice：																					(已改)
+			apprentice_id		徒弟ID
+			master_id			师傅ID
+			master_name			师傅名字
+			career				徒弟职业
+			status				当前状态（0已出师，1学徒，2申请中）
+			report_lv			可汇报等级（本次汇报徒弟的等级相对于上一次汇报所提高的等级）
+			join_time			入门时间
+			last_report_time	最近报告时间
+			
+	组队：
+		队伍资料：ets_team,
+		队员数据：ets_mb
+		人数限制：1--5人
+		单人可以创建队伍
+		玩家同意组队邀请：
+			玩家需要与队伍的队长同一场景，并且在可组队的范围内，
+			且发邀请的玩家必须同时也在该队伍中。
+		
+		
+	帮派：		
+		新增		帮派日志(数据表)：log_guild
+		log_guild
+			type				事件类型（0加入帮派，1退出帮派，2捐献铜币，3职位变化，4帮派战....）
+			event_time			时间时间
+			event				事件描述
+			
+		帮派仓库				（未有）
+		（以下不用修改，仅作记录）
+		帮派申请
+			guild_apply -->ets_guild_apply
+			-record(ets_guild_apply, {
+				id = 0,                       % 记录ID
+				guild_id = 0,                 % 帮派ID
+				player_id = 0,                % 角色ID
+				create_time = 0,              % 申请时间
+			以下在表中没定义	
+				player_name = <<>>,           % 角色昵称
+				player_sex   = 0,             % 性别
+				player_jobs  = 0,             % 职位
+				player_level = 0,             % 等级
+				player_career = 0             % 职业
+				}).
+		新建表：
+		帮派日志表--log_guild
+			id			事件ID
+			guild_id	帮派ID
+			guild_name	帮派名字
+			time		帮派事件发生时间
+			content		帮派事件内容
+			
+			
+			 
+			
+		

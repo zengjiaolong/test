@@ -1,0 +1,52 @@
+地图：
+	场景：
+		表 base_scene
+	npc：
+		表：base_npc
+	怪物：
+		怪物类型：1-普通怪 2-精英怪 3-野外BOSS 4-副本怪 5-副本BOSS
+		攻击类型:是否主动攻击玩家, 1-是 0-否
+			HP(血) -->	气血
+			desc(默认对话) -->对话[场景台词，追踪前台词，战斗台词]
+			type-->  	att_type		是否主动攻击（1-是 0-否）
+		表：base_mon																					(已改)
+			加：
+				att_type		是否主动攻击（1-是 0-否）
+				drop_pro		掉落物品概率
+				anti_wind		风抗性	
+				anti_fire		火抗性	
+				anti_water		水抗性
+				anti_soil		雷抗性	
+				spirit			灵力(值)
+				max_attack		最大攻击力
+				min_attack		最小攻击力
+				guard_area		警戒范围
+				patrol_area		巡逻范围
+				patrol_time		巡逻间隔(时间)
+				patrol_speed	巡逻速度
+				escape_type		逃跑类型(0：不逃跑，1：会逃跑)
+				escape_hp		逃跑血量，当低于逃跑血量时，会逃跑的怪物就会自动逃跑
+				escape_speed	逃跑速度
+			减：
+				ten				坚韧
+				
+				
+		%%暂时改成data_mon_test:get(MonId)，用于获取数据，php后台实现时即可更改
+		lib_mon.erl
+			Line 44:     case data_mon:get(MonId) of
+		mod_mon_active.erl
+			Line 33:     case data_mon:get(MonId) of
+		mod_scene.erl
+			Line 180:     case data_mon:get(MonId) of
+		
+		
+		
+	任务：
+		表：base_task
+		
+		
+		
+表更新：
+	修改base_goods, goods_attribute, base_goods_suit_attribute,base_mon, player
+	以上各表都添加添加了 max_attack，min_attack 两字段  											(已完成)
+	同时删除att字段															(未完成)

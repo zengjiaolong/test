@@ -1,0 +1,6 @@
+cd ..
+
+erl -make
+
+pause
+

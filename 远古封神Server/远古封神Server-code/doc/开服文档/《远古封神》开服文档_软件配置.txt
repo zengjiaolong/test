@@ -1,0 +1,51 @@
+1.需要安装的基础软件：
+	1).nginx + php_cgi	【运维负责】
+		(1)、安装Mongondb的PHP扩展
+			>tar zxvf mongodb-mongo-php-driver-1.0.11-12-g6939b14.tar.gz
+			>cd mongodb-mongo-php-driver-1.0.11-12-g6939b14
+			>/usr/local/php/bin/phpize 
+			>./configure --with-php-config=/usr/local/php/bin/php-config --enable-mongo
+			>./configure --with-php-config=/usr/local/php/bin/php-config
+			>make
+			>cp modules/mongo.so /usr/local/php/lib/php/extensions/no-debug-zts-20060613/
+			修改：/etc/php.ini   加入：extension=mongo.so
+	2).mongodb
+		见文档：http://www.cnblogs.com/zengen/archive/2010/11/17/1879719.html
+	3).erlang
+		(1).>wget http://ftp.gnu.org/pub/gnu/ncurses/ncurses-5.6.tar.gz
+			>tar zxvf ncurses-5.6.tar.gz
+			>cd ncurses-5.6
+			>./configure
+			>make
+			>make install clean
+		(2).>wget http://www.erlang.org/download/otp_src_R14A.tar.gz
+			>tar -xzf otp_src_R14A.tar.gz
+			>cd otp_src_R14A
+			>./configure 
+			>make
+			>sudo make install
+		(3).拷贝 crypto-2.0.tar 并解压到 erlang的lib目录下。
+
+2.应用安装：
+	1).建立 mongodb数据库
+	2).复制 www：
+	   涉及的参数配置：
+		php/config/db.php
+		html/flash/assets/config/config.xml
+		html/define.php
+	3).复制 erlang程序(三个目录：config、ebin、sh)
+	   涉及的参数配置：
+		config/gateay.config
+		config/run_*.config
+		sh/gateway.sh
+		sh/run_*.sh	
+	   根据需要， 配置结点个数。
+	4).要求平台方，配置域名：
+		ygfs*.my4399.com	指向web服务器
+		ygfs*_flash.my4399.com	指向资源服务器
+
+3.系统监控：
+	安全退出所有节点：在gateway节点控制台上，运行:  misc_admin:safe_quit([]). 
+
+
+
