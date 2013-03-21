@@ -1,0 +1,19 @@
+{
+	[
+		'../src/*',
+		'../src/lib/*',
+		'../src/lib/mysql/*',
+		'../src/mod/*',
+		'../src/pp/*',
+		'../src/proto/*',
+                '../src/data/*',
+		'../src/test/*',
+		'../src/test/performance/*',
+		'../src/test/script/*'
+	]
+	,[
+		debug_info
+		,{i, "../include"}
+		,{outdir, "../ebin"}
+	]
+}.

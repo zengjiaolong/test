@@ -1,0 +1,96 @@
+================ NPC任务模块 ===========
+分类号:32
+描述:战斗信息
+
+## npc默认对话和关联任务
+协议号:32000
+c >> s:
+	int32	唯一标识
+
+s >> c:
+	int32	唯一标识
+	array{	关联任务
+		int32	任务id
+		int8 	任务状态
+		string	任务名称
+	}
+	array(	对话
+		array(
+			int16   类型(见下面对话类型)
+			string  文字内容
+			string  附加属性，多个以"#&"分隔
+		)
+	)
+
+对话类型
+0	npc	NPC对话内容
+1	role	角色对话内容
+2	yes	确定
+3	no	取消
+4	fight	发生战斗
+5	trigger	触发任务
+6	finish	完成任务
+7	trigger_and_finish	触发并完成任务
+8	talk_event	触发对话事件
+9	build_guild	建立帮派
+10	apply_join_guild	申请加入帮派
+11	guild_store	帮派仓库
+12	guild_task	帮派任务
+13	learn_skill	技能学习
+14	personal_store	个人仓库
+15	buy	买物品
+16	sell	卖物品
+17	mixture	合成
+18	embed	镶嵌
+19	identify	装备鉴定
+20	mix	法宝熔合
+21	strenghten	装备强化
+22	petshop	仙宠购买
+23	train_equip	法宝修炼
+24	drill	装备打孔
+25	fixed	装备修理
+26	fix_all	全部修理
+27	ablate	摘除宝石
+28	alchemy	炼丹
+29	back_to_guild_scene	回到帮会领地
+30	leave_guild_scene	离开帮会领地
+31	join_guild_war	参加帮会战
+32	watch_guild_war	观看帮会战
+33	enabled_xxd	开启玄虚鼎
+34	chushi	出师
+35	bole_billboard	伯乐榜
+36	soul_binding	灵魂绑定
+37	coin_binding	铜钱绑定
+38	task_award	任务奖励
+39	jobber	交易行
+40	open_favorite 弹出收藏框(不显示)
+41	fb_list	副本    附加参数：int32 场景id
+42	fb_out  离开副本    附加参数：int32 NPCid
+
+对话内容标签说明：
+[name][/name]			角色名字
+[sex]StringA:StringB[/sex]	角色性别是男的显示StringA，女的则是StringB
+
+## 获取任务对话
+协议号:32001
+c >> s:
+	int32 唯一标识
+	int32 任务id
+s >> c:
+	int32 唯一标识
+	int32 任务id
+	array(
+		array(
+			int16   类型
+			string  文字内容
+			string  附加属性，多个以"#&"分隔
+		)
+	)
+
+## 设置npc显示或隐藏
+协议号:32002
+c >> s:
+	无
+s >> c:
+	int32  Npc唯一标识
+	int8   显示1，隐藏0
